@@ -1,0 +1,57 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+test = "test"
+cache_path = "cache"
+force = false
+evm_version = "cancun"
+optimizer = true
+optimizer_runs = 200
+via_ir = true
+fs_permissions = [
+    { access = 'read-write', path = 'deployments/' },
+    { access = 'read', path = 'deploy-config/' },
+    { access = 'read', path = 'broadcast/' },
+    { access = 'read', path = 'script/' },
+]
+
+verbosity = 2
+ffi = false
+remappings = [
+    "@openzeppelin/contracts-upgradeable/=lib/openzeppelin-contracts-upgradeable/contracts/",
+    "@openzeppelin/contracts/=lib/openzeppelin-contracts/contracts/",
+    "forge-std/=lib/forge-std/src/"
+]
+
+[profile.default.fuzz]
+runs = 1000
+max_test_rejects = 65536
+seed = '0x3e8'
+dictionary_weight = 40
+include_storage = true
+include_push_bytes = true
+
+[profile.intense]
+fuzz = { runs = 10000 }
+
+# Network configuration
+[rpc_endpoints]
+mainnet = "${ETH_MAIN_RPC}"
+bsc = "${BSC_MAIN_RPC}"
+bsc_testnet = "${BSC_TEST_RPC}"
+base = "${BASE_MAIN_RPC}"
+base_sepolia = "${BASE_SEPOLIA_RPC}"
+xlayer = "${XLAYER_MAIN_RPC}"
+xlayer_test = "${XLAYER_TEST_RPC}"
+
+[etherscan]
+mainnet =  { key = "${ETH_API_KEY}" , url = "${ETH_API_URL}"}
+bsc = { key = "${ETH_API_KEY}" , url = "${BNB_API_URL}"}
+bsc_testnet = { key = "${ETH_API_KEY}" , url = "${BNB_TEST_API_URL}"}
+base =  { key = "${ETH_API_KEY}" , url = "${BASE_API_URL}"}
+base_sepolia =  { key = "${ETH_API_KEY}", url = "${BASE_SEPOLIA_API_URL}" }
+xlayer =  { key = "${XLAYER_API_KEY}", url = "${XLAYER_MAIN_RPC}" }
+xlayer_test =  { key = "${XLAYER_API_KEY}", url = "${XLAYER_TEST_RPC}" }
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
